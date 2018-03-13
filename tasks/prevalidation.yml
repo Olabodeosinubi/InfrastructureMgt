@@ -101,30 +101,25 @@
 - debug: var=ps.stdout_lines
 
 - name: Check Updates (yum)
-  shell: sudo yum check-update > {{update_check_log}} || test $? -eq 100
-  become_user: true
+  shell: yum check-update > {{update_check_log}} || test $? -eq 100
 
 - name: Check Updates (yum)
   shell: sudo yum check-update || test $? -eq 100
-  become_user: true
   register: yumoutput
 
 - debug: var=yumoutput.stdout_lines
 
 - name: Check Last Yum Command Run,  Start , End Date and Installed Packages
   shell: sudo yum history info | grep -e "Begin time" -e "Command Line" -e "Installed" -e "User" > {{last_yumrun_log}}
-  become_user: true
   
 - name: Check Last Yum Command Run,  Start , End Date and Installed Packages
   shell: sudo yum history info | grep -e "Begin time" -e "Command Line" -e "Installed" -e "User"
-  become_user: true
   register: last_yum_command
 
 - debug: var=last_yum_command.stdout_lines
 
 - name: clean all yum caches
   shell: sudo yum clean all
-  become_user: true
   register: ps
 
 - debug: var=ps.stdout_lines
