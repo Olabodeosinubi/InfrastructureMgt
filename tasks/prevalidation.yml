@@ -23,20 +23,20 @@
 
 - debug: var=ps.stdout_lines                   
 
-# - name: OS Version
+- name: OS Version
 #  become: yes
 #  become_method:  sudo su
 #  become_user: mwadmin
-#  shell: cat /etc/redhat-release > {{version_log}}
+  shell: cat /etc/redhat-release > {{version_log}}
   
-#- name: OS Version
+- name: OS Version
 #  become: yes
 #  become_method: sudo su
 #  become_user: mwadmin
-#  shell: cat /etc/redhat-release
-#  register: ps
+  shell: cat /etc/redhat-release
+  register: ps
   
-#- debug: var=ps.stdout_lines
+- debug: var=ps.stdout_lines
 
 - name: Check Memory and Swap Resources
   shell: free -h > {{mem_swap_log}}
@@ -74,28 +74,19 @@
 
 - debug: var=ps.stdout_lines
 
-#- name: Fstab Contents File
- # shell: sudo cat /etc/fstab > {{fstab_content_log}}
- # become_user: true
+- name: Fstab Contents File
+  shell: cat /etc/fstab > {{fstab_content_log}}
+  become_user: true
 
-#- name: Fstab Contents File
-#  shell: sudo cat /etc/fstab
-#  register: ps
-#  become_user: true
-
-#- debug: var=ps.stdout_lines
-
-- name: Mount Point
-  shell: echo $(hostname) for $(date);mount > {{mount_log}}
+- name: Fstab Contents File
+  shell: cat /etc/fstab
   register: ps
+  become_user: true
 
 - debug: var=ps.stdout_lines
 
-- name: mount
-  command: mount -a
-
-- name: mount
-  command: mount -a
+- name: Mount Point
+  shell: echo $(hostname) for $(date);mount > {{mount_log}}
   register: ps
 
 - debug: var=ps.stdout_lines
