@@ -1,0 +1,3 @@
+---
+# tasks file for rhelpostpatch
+- import_tasks: prevalidation.yml
