@@ -104,22 +104,22 @@
   shell: yum check-update > {{update_check_log}} || test $? -eq 100
 
 - name: Check Updates (yum)
-  shell: sudo yum check-update || test $? -eq 100
+  shell: yum check-update || test $? -eq 100
   register: yumoutput
 
 - debug: var=yumoutput.stdout_lines
 
 - name: Check Last Yum Command Run,  Start , End Date and Installed Packages
-  shell: sudo yum history info | grep -e "Begin time" -e "Command Line" -e "Installed" -e "User" > {{last_yumrun_log}}
+  shell: yum history info | grep -e "Begin time" -e "Command Line" -e "Installed" -e "User" > {{last_yumrun_log}}
   
 - name: Check Last Yum Command Run,  Start , End Date and Installed Packages
-  shell: sudo yum history info | grep -e "Begin time" -e "Command Line" -e "Installed" -e "User"
+  shell: yum history info | grep -e "Begin time" -e "Command Line" -e "Installed" -e "User"
   register: last_yum_command
 
 - debug: var=last_yum_command.stdout_lines
 
 - name: clean all yum caches
-  shell: sudo yum clean all
+  shell: yum clean all
   register: ps
 
 - debug: var=ps.stdout_lines
