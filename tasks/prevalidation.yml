@@ -76,12 +76,12 @@
 
 - name: Fstab Contents File
   shell: cat /etc/fstab > {{fstab_content_log}}
-  become_user: true
+#  become_user: true
 
 - name: Fstab Contents File
   shell: cat /etc/fstab
   register: ps
-  become_user: true
+#  become_user: true
 
 - debug: var=ps.stdout_lines
 
